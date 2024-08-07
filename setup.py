@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="PackageBuilding",
-    version="1.0.5",
+    version="1.0.6",
     description="How to build the custom package in Python",
     # The below data will be shown in the PyPI documentation
     long_description=open('README.md').read(),  # Read the detailed description from README
