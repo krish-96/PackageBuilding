@@ -13,3 +13,7 @@ def get_current_datetime(date_format=None) -> str:
     except Exception as e:
         print("Exception at: get_current_datetime function")
         raise PackageBuildingException(f"Could not get current datetime due to exception occurred, Exception: {e}")
+
+
+def get_current_date() -> datetime.date:
+    return datetime.now().date()
