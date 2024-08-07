@@ -64,7 +64,6 @@ more-itertools==8.10.0
 netifaces==0.11.0
 oauthlib==3.2.0
 olefile==0.46
-PackageBuilding @ file:///home/krishna/Desktop/CustomPackage/PackageBuilding/dist/PackageBuilding-1.0.0-py3-none-any.whl#sha256=4e8f53552e61872ae8abaafb7b06e738518f4e3f631eeec269761f9eebb22ec2
 packaging==23.2
 paramiko==2.9.3
 pexpect==4.8.0
