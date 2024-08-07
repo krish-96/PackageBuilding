@@ -1,0 +1,13 @@
+#To prevent certain files from being included in the Git repository...
+
+#Virtual environemnt
+/venv
+/env
+
+#Package build
+build/
+PackageBuilding.egg-info/
+
+
+# IDE
+.idea
