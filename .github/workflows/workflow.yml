@@ -1,37 +1,41 @@
-
+# Sets the name of the workflow. This name appears in the GitHub Actions UI and helps identify the purpose of the workflow.
 name: Publish Package
 
-on:
-  push:
-    tags:
-      - 'v*.*.*'
+on: # Defines the events that trigger the workflow.
+  push: # The workflow runs when a push event occurs.
+    tags: # Specifies that the workflow should be triggered by pushes to tags that match the pattern 'v*.*.*'
+      - 'v*.*.*'  # which typically represents version tags like v1.0.0.
 
-jobs:
-  build-and-publish:
-    runs-on: ubuntu-latest  # Specify the runner type here
+jobs: # A workflow consists of one or more jobs.
+  build-and-publish: # The name of the job. It can be any name you choose.
+    runs-on: ubuntu-latest  # Specifies the type of runner environment to use.
+    # ubuntu-latest indicates that the job will run on the latest version of Ubuntu.
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    steps: # Each job consists of multiple steps.
+      - name: Checkout code  # Describes what the step does, in this case, checking out the code
+        uses: actions/checkout@v3  # Specifies an action to use.
+        # actions/checkout@v3 checks out the code from the repository so that the workflow can access it.
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10' # Use the appropriate Python version
+      - name: Set up Python  #  Describes the step of setting up Python.
+        uses: actions/setup-python@v4  # Specifies the action to use. actions/setup-python@v4 sets up the specified Python version.
+        with:
+          python-version: '3.10' # Provides input parameters to the action. python-version: '3.10' sets the Python version to 3.10.
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt  # Adjust if you use another dependency management tool
+      - name: Install dependencies  # Describes the step of installing dependencies
+        # Runs commands in the shell. The pipe (|) allows multiple commands to be executed in sequence.
+        run: |
+          python -m pip install --upgrade pip   # Upgrades pip to the latest version.
+          pip install -r requirements.txt  # Installs dependencies listed in requirements.txt. 
+          # Adjust if using a different tool for dependency management.
 
-    - name: Build the package
-      run: |
-        python -m pip install --upgrade setuptools wheel
-        python setup.py sdist bdist_wheel
+      - name: Build the package  # Describes the step of building the package.
+        run: |  # Runs commands in the shell. 
+          python -m pip install --upgrade setuptools wheel  # IInstalls or upgrades setuptools and wheel, which are necessary for packaging.
+          python setup.py sdist bdist_wheel  # Builds the source distribution and wheel distribution of the package.
 
-    - name: Publish to PyPI
-      env:
-        PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-      run: |
-        python -m twine upload dist/*
+      - name: Publish to PyPI  # Describes the step of publishing the package to PyPI.
+        env:  # Sets environment variables for the step.
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}  # PYPI_TOKEN and TWINE_PASSWORD are set to the same secret, PYPI_TOKEN, which is used for authentication.
+        run: |  # Runs commands in the shell
+          python -m twine upload dist/*  # Uploads the package distributions located in the dist/ directory to PyPI using twine.
